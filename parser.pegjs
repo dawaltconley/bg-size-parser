@@ -1,18 +1,38 @@
-Value = Keyword / ( Length ( _ Length )? )
+{
+    var validUnits = [ '', '%', 'em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax', 'px', 'pt', 'pc', 'in', 'mm', 'cm' ]
+}
 
-Length = Percent / Relative / Absolute / 'auto'
+Multiple = v:Value ',' _ vNext:Multiple { return [v].concat(vNext) }
+    / v:Value { return [v] }
+    / '' { return [] }
 
-Keyword = 'cover' / 'contain' / 'inherit' / 'initial' / 'unset'
+Value = Keyword / Dimensions
 
-Percent "percent"
-  = i:Integer '%' { return i / 100; }
+Dimensions = w:Size h:( _ Size )? {
+    var d = { width: w };
+    return {
+        width: w,
+        height: h ? h[1] : { size: 'auto' }
+    }
+}
 
-Relative = i:Integer ('em' / 'ex' / 'ch' / 'rem' / 'vw' / 'vh' / 'vmin' / 'vmax')
+Size = i:( 'auto' / Number ) unit:[a-z%]* & {
+    return validUnits.indexOf(unit.join('')) >= 0
+} {
+    return {
+        size: i,
+        unit: i === 'auto' ? undefined : ( unit.join('') || 'px' )
+    }
+}
 
-Absolute = i:Integer ('px' / 'pt' / 'pc' / 'in' / 'mm' / 'cm')
+Keyword = ( 'cover' / 'contain' / 'inherit' / 'initial' / 'unset' ) {
+    return {
+        keyword: text()
+    }
+}
 
-Integer "integer"
-  = [0-9]+ { return parseInt(text(), 10); }
+Number = [0-9]* ('.'? [0-9]+)? {
+    return Number(text());
+}
 
-_ "whitespace"
-  = [ ]+
+_ = ' '+
