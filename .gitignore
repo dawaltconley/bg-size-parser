@@ -1,0 +1,11 @@
+parser.js
+node_modules/
+dist/
+device-data/
+eleventy/_site/
+eleventy/_data/generated/
+.DS_Store
+*~
+*.swp
+*.swo
+sh.exe.stackdump
