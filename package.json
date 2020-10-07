@@ -1,5 +1,5 @@
 {
-  "name": "background-size",
+  "name": "bg-size-parser",
   "version": "0.1.0",
   "description": "A parser for valid background-size CSS values.",
   "main": "index.js",
@@ -23,6 +23,10 @@
     "background",
     "background-size"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dawaltconley/bg-size-parser.git"
+  },
   "author": "Dylan Awalt-Conley",
   "license": "ISC"
 }
