@@ -3,16 +3,25 @@
   "version": "0.1.0",
   "description": "A parser for valid background-size CSS values.",
   "main": "index.js",
+  "files": [
+    "/index.js"
+  ],
   "dependencies": {},
   "devDependencies": {
     "eslint": "^7.10.0",
     "pegjs": "^0.10.0"
   },
   "scripts": {
-    "test": "node test"
+    "build": "node build",
+    "test": "node test",
+    "prepublishOnly": "node test"
   },
   "keywords": [
-    "pegjs"
+    "parser",
+    "pegjs",
+    "css",
+    "background",
+    "background-size"
   ],
   "author": "Dylan Awalt-Conley",
   "license": "ISC"
