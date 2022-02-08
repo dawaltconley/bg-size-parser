@@ -50,7 +50,11 @@ parse('400px var(--foo, 100px)');
 // [
 //   {
 //     width: { size: 400, unit: 'px' },
-//     height: { variable: 'var(--foo, 100px)', name: '--foo', fallback: '100px' }
+//     height: {
+//       variable: 'var(--foo, 100px)',
+//       name: '--foo',
+//       fallback: '100px'
+//     }
 //   }
 // ]
 ```
