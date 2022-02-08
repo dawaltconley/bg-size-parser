@@ -18,12 +18,14 @@ Dimensions = w:Size h:( _ Size )? {
 
 Size = Length / Var / Calc
 
-Var = 'var(' name:('--' [A-z0-9_-]*) ')'  {
+Var = 'var(' name:CustomProperty ')'  {
     return {
         variable: text(),
         customPropertyName: name.flat().join('')
     }
 }
+
+CustomProperty = '--' [A-z0-9_-]*
 
 Calc = 'calc(' (!')'.)* ')' {
     return {
