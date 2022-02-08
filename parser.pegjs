@@ -18,19 +18,26 @@ Dimensions = w:Size h:( _ Size )? {
 
 Size = Length / Var / Calc
 
-Var = 'var(' name:CustomProperty ')'  {
+Var = 'var(' _? name:CustomProperty fallback:(_? ',' _? Parenthetical)? _? ')'  {
     return {
         variable: text(),
-        customPropertyName: name.flat().join('')
+        name: name,
+        fallback: fallback ? fallback[3] : undefined
     }
 }
 
-CustomProperty = '--' [A-z0-9_-]*
+CustomProperty = '--' [A-z0-9_-]* {
+    return text();
+}
 
-Calc = 'calc(' (!')'.)* ')' {
+Calc = 'calc(' Parenthetical ')' {
     return {
         calculation: text()
     }
+}
+
+Parenthetical = (!')'.)* {
+    return text();
 }
 
 Length = i:( 'auto' / Number ) unit:[a-z%]* & {

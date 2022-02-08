@@ -149,7 +149,7 @@ const tests = [
         input: [ 'var(--foo-bar)' ],
         output: [
             {
-                width: { variable: 'var(--foo-bar)', customPropertyName: '--foo-bar' },
+                width: { variable: 'var(--foo-bar)', name: '--foo-bar', fallback: undefined },
                 height: { size: 'auto' }
             }
         ]
@@ -158,7 +158,7 @@ const tests = [
         input: [ 'var(--baz) 50%' ],
         output: [
             {
-                width: { variable: 'var(--baz)', customPropertyName: '--baz' },
+                width: { variable: 'var(--baz)', name: '--baz', fallback: undefined },
                 height: { size: 50, unit: '%'}
             }
         ]
@@ -168,7 +168,25 @@ const tests = [
         output: [
             {
                 width: { size: 400, unit: 'px' },
-                height: { variable: 'var(--camelCase)', customPropertyName: '--camelCase' }
+                height: { variable: 'var(--camelCase)', name: '--camelCase', fallback: undefined }
+            }
+        ]
+    },
+    {
+        input: [ 'var( --spacing )' ],
+        output: [
+            {
+                width: { variable: 'var( --spacing )', name: '--spacing', fallback: undefined },
+                height: { size: 'auto' }
+            }
+        ]
+    },
+    {
+        input: [ 'var(--fallback , 100px)' ],
+        output: [
+            {
+                width: { variable: 'var(--fallback , 100px)', name: '--fallback', fallback: '100px' },
+                height: { size: 'auto' }
             }
         ]
     },
