@@ -35,4 +35,22 @@ parse('6px, auto, contain');
 //   },
 //   { keyword: 'contain' }
 // ]
+
+parse('calc(100% + 200px) 100px');
+
+// [
+//   {
+//     width: { calculation: 'calc(100% + 200px)' },
+//     height: { size: 100, unit: 'px' }
+//   }
+// ]
+
+parse('400px var(--foo, 100px)');
+
+// [
+//   {
+//     width: { size: 400, unit: 'px' },
+//     height: { variable: 'var(--foo, 100px)', name: '--foo', fallback: '100px' }
+//   }
+// ]
 ```
