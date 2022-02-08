@@ -127,6 +127,51 @@ const tests = [
         ]
 
     },
+    {
+        input: [ 'calc(200px)' ],
+        output: [
+            {
+                width: { calculation: 'calc(200px)' },
+                height: { size: 'auto' }
+            }
+        ]
+    },
+    {
+        input: [ 'calc(100% + 200px) 100px' ],
+        output: [
+            {
+                width: { calculation: 'calc(100% + 200px)' },
+                height: { size: 100, unit: 'px' }
+            }
+        ]
+    },
+    {
+        input: [ 'var(--foo-bar)' ],
+        output: [
+            {
+                width: { variable: 'var(--foo-bar)', customPropertyName: '--foo-bar' },
+                height: { size: 'auto' }
+            }
+        ]
+    },
+    {
+        input: [ 'var(--baz) 50%' ],
+        output: [
+            {
+                width: { variable: 'var(--baz)', customPropertyName: '--baz' },
+                height: { size: 50, unit: '%'}
+            }
+        ]
+    },
+    {
+        input: [ '400px var(--camelCase)' ],
+        output: [
+            {
+                width: { size: 400, unit: 'px' },
+                height: { variable: 'var(--camelCase)', customPropertyName: '--camelCase' }
+            }
+        ]
+    },
 ];
 
 for (const { input, output } of tests) {
