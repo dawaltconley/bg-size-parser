@@ -18,7 +18,7 @@ Dimensions = w:Size h:( _ Size )? {
 
 Size = Length / Var / Calc
 
-Var = 'var(' _? name:CustomProperty fallback:(_? ',' _? Parenthetical)? _? ')'  {
+Var = 'var(' _? name:$CustomProperty fallback:(_? ',' _? $Parenthetical)? _? ')'  {
     return {
         variable: text(),
         name: name,
@@ -26,9 +26,7 @@ Var = 'var(' _? name:CustomProperty fallback:(_? ',' _? Parenthetical)? _? ')'  
     }
 }
 
-CustomProperty = '--' [A-z0-9_-]* {
-    return text();
-}
+CustomProperty = '--' [A-z0-9_-]*
 
 Calc = 'calc(' Parenthetical ')' {
     return {
@@ -36,9 +34,7 @@ Calc = 'calc(' Parenthetical ')' {
     }
 }
 
-Parenthetical = (!')'.)* {
-    return text();
-}
+Parenthetical = (!')'.)*
 
 Length = i:( 'auto' / Number ) unit:[a-z%]* & {
     return validUnits.indexOf(unit.join('')) >= 0
