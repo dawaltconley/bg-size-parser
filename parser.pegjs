@@ -16,7 +16,22 @@ Dimensions = w:Size h:( _ Size )? {
     }
 }
 
-Size = i:( 'auto' / Number ) unit:[a-z%]* & {
+Size = Length / Var / Calc
+
+Var = 'var(' name:('--' [A-z0-9_-]*) ')'  {
+    return {
+        variable: text(),
+        customPropertyName: name.flat().join('')
+    }
+}
+
+Calc = 'calc(' (!')'.)* ')' {
+    return {
+        calculation: text()
+    }
+}
+
+Length = i:( 'auto' / Number ) unit:[a-z%]* & {
     return validUnits.indexOf(unit.join('')) >= 0
 } {
     return {
