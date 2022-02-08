@@ -6,10 +6,9 @@
   "files": [
     "/index.js"
   ],
-  "dependencies": {},
   "devDependencies": {
     "eslint": "^7.10.0",
-    "pegjs": "^0.10.0"
+    "peggy": "^1.2.0"
   },
   "scripts": {
     "build": "node build",

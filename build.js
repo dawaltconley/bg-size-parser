@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const peg = require('pegjs');
+const peg = require('peggy');
 
 const p = (...args) => path.join(__dirname, ...args);
 
