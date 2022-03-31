@@ -146,6 +146,33 @@ const tests = [
         ]
     },
     {
+        input: [ 'max(20vw, 400px) 100px' ],
+        output: [
+            {
+                width: { max: 'max(20vw, 400px)' },
+                height: { size: 100, unit: 'px' }
+            }
+        ]
+    },
+    {
+        input: [ 'min(50vw, 200px)' ],
+        output: [
+            {
+                width: { min: 'min(50vw, 200px)' },
+                height: { size: 'auto' }
+            }
+        ]
+    },
+    {
+        input: [ 'clamp(1rem, 2.5vw, 2rem)' ],
+        output: [
+            {
+                width: { clamp: 'clamp(1rem, 2.5vw, 2rem)' },
+                height: { size: 'auto' }
+            }
+        ]
+    },
+    {
         input: [ 'var(--foo-bar)' ],
         output: [
             {

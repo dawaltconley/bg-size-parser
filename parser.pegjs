@@ -1,5 +1,6 @@
 {
     var validUnits = [ '', '%', 'em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax', 'px', 'pt', 'pc', 'in', 'mm', 'cm' ]
+    var validFunctions = [ 'clamp', 'max', 'min' ]
 }
 
 Multiple = v:Value ',' _ vNext:Multiple { return [v].concat(vNext) }
@@ -16,7 +17,7 @@ Dimensions = w:Size h:( _ Size )? {
     }
 }
 
-Size = Length / Var / Calc
+Size = Length / Var / Calc / Math
 
 Var = 'var(' _? name:$CustomProperty fallback:(_? ',' _? $Parenthetical)? _? ')'  {
     return {
@@ -28,9 +29,19 @@ Var = 'var(' _? name:$CustomProperty fallback:(_? ',' _? $Parenthetical)? _? ')'
 
 CustomProperty = '--' [A-z0-9_-]*
 
+// TODO should improve return object and parse the contents of math functions when possible
+Math = func:[a-z]+ & {
+    return validFunctions.indexOf(func.join('')) >= 0
+} '(' Parenthetical ')' {
+    let type = func.join('');
+    return {
+        [type]: text()
+    }
+}
+
 Calc = 'calc(' Parenthetical ')' {
     return {
-        calculation: text()
+        calculation: text() // TODO this property should be called something else
     }
 }
 
